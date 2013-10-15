@@ -3,7 +3,7 @@
 	<groupId>com.github.ddth</groupId>
 	<artifactId>spring-social-helper</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>spring-social-helper</name>
 	<description>Helper Library for Spring Social</description>
 	<url>http://maven.apache.org</url>
