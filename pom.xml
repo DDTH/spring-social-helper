@@ -1,45 +1,42 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.ddth</groupId>
-	<artifactId>spring-social-helper</artifactId>
-	<packaging>jar</packaging>
-	<version>0.2-SNAPSHOT</version>
-	<name>spring-social-helper</name>
-	<description>Helper Library for Spring Social</description>
-	<url>http://maven.apache.org</url>
-	<licenses>
-		<license>
-			<name>GNU Lesser General Public License, Version 3.0</name>
-			<url>http://www.gnu.org/licenses/lgpl.html</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<scm>
-		<url>git@github.com:btnguyen2k/spring-social-helper.git</url>
-		<connection>scm:git:git@github.com:btnguyen2k/spring-social-helper.git</connection>
-		<developerConnection>scm:git:git@github.com:btnguyen2k/spring-social-helper.git</developerConnection>
-	</scm>
-	<developers>
-		<developer>
-			<id>btnguyen2k</id>
-			<name>Thanh Ba Nguyen</name>
-			<email>btnguyen2k@gmail.com</email>
-		</developer>
-	</developers>
 
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<groupId>com.github.ddth</groupId>
+		<artifactId>ddth-parent</artifactId>
+		<version>1</version>
 	</parent>
+
+	<groupId>com.github.ddth</groupId>
+	<artifactId>spring-social-helper</artifactId>
+	<packaging>bundle</packaging>
+	<version>0.2.1-SNAPSHOT</version>
+
+	<name>spring-social-helper</name>
+	<description>Helper Library for Spring Social</description>
+	<url>https://github.com/DDTH/spring-social-helper</url>
+
+	<!-- <licenses> <license> <name>The MIT License (MIT)</name> <url>http://opensource.org/licenses/MIT</url> 
+		<distribution>repo</distribution> </license> </licenses> <developers> <developer> 
+		<id>btnguyen2k</id> <name>Thanh Ba Nguyen</name> <email>btnguyen2k@gmail.com</email> 
+		</developer> </developers> -->
+
+	<scm>
+		<url>git@github.com:DDTH/spring-social-helper.git</url>
+		<connection>scm:git:git@github.com:DDTH/spring-social-helper.git</connection>
+		<developerConnection>scm:git:git@github.com:DDTH/spring-social-helper.git</developerConnection>
+	</scm>
 
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>${version.junit}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-core</artifactId>
@@ -53,20 +50,46 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>15.0</version>
+			<version>${version.guava}</version>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<instructions>
+						<!-- <Bundle-Activator></Bundle-Activator> -->
+						<Export-Package>com.github.ddth.springsocialhelper</Export-Package>
+						<Import-Package>com.google.common.*;version="${version.guava}",*</Import-Package>
+						<!--
+						<Embed-Dependency>groupId=org.springframework.social</Embed-Dependency>
+						<Embed-Transitive>true</Embed-Transitive>
+						<Embed-Directory>lib</Embed-Directory>
+						-->
+					</instructions>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>distro-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>assembly/spring-social-helper-withdeps.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
